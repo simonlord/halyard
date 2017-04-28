@@ -116,6 +116,15 @@
  * [**hal config provider openstack account list**](#hal-config-provider-openstack-account-list)
  * [**hal config provider openstack disable**](#hal-config-provider-openstack-disable)
  * [**hal config provider openstack enable**](#hal-config-provider-openstack-enable)
+ * [**hal config provider oraclebmcs**](#hal-config-provider-oraclebmcs)
+ * [**hal config provider oraclebmcs account**](#hal-config-provider-oraclebmcs-account)
+ * [**hal config provider oraclebmcs account add**](#hal-config-provider-oraclebmcs-account-add)
+ * [**hal config provider oraclebmcs account delete**](#hal-config-provider-oraclebmcs-account-delete)
+ * [**hal config provider oraclebmcs account edit**](#hal-config-provider-oraclebmcs-account-edit)
+ * [**hal config provider oraclebmcs account get**](#hal-config-provider-oraclebmcs-account-get)
+ * [**hal config provider oraclebmcs account list**](#hal-config-provider-oraclebmcs-account-list)
+ * [**hal config provider oraclebmcs disable**](#hal-config-provider-oraclebmcs-disable)
+ * [**hal config provider oraclebmcs enable**](#hal-config-provider-oraclebmcs-enable)
  * [**hal config security**](#hal-config-security)
  * [**hal config security api**](#hal-config-security-api)
  * [**hal config security api edit**](#hal-config-security-api-edit)
@@ -173,7 +182,7 @@
 
 A tool for configuring, installing, and updating Spinnaker.
 
-  Version: 1.0.0-SNAPSHOT
+  Version: 0.21.0-SNAPSHOT
 
 If this is your first time using Halyard to install Spinnaker we recommend that you skim the documentation on www.spinnaker.io/docs for some familiarity with the product. If at any point you get stuck using 'hal', every command can be suffixed with '--help' for usage information. Once you are ready, these are the steps you need to follow to get an initial configuration of Spinnaker up and running:
 
@@ -751,6 +760,7 @@ hal config provider [subcommands]
  * `google`: Manage and view Spinnaker configuration for the google provider
  * `kubernetes`: Manage and view Spinnaker configuration for the kubernetes provider
  * `openstack`: Manage and view Spinnaker configuration for the openstack provider
+ * `oraclebmcs`: Manage and view Spinnaker configuration for the oraclebmcs provider
 
 ---
 ## hal config provider appengine
@@ -2031,6 +2041,135 @@ Set the openstack provider as enabled
 #### Usage
 ```
 hal config provider openstack enable [parameters]
+```
+#### Parameters
+ * `--no-validate`: (*Default*: `false`) Skip validation.
+
+---
+## hal config provider oraclebmcs
+
+Manage and view Spinnaker configuration for the oraclebmcs provider
+
+#### Usage
+```
+hal config provider oraclebmcs [parameters] [subcommands]
+```
+#### Parameters
+ * `--no-validate`: (*Default*: `false`) Skip validation.
+#### Subcommands
+ * `account`: Manage and view Spinnaker configuration for the oraclebmcs provider's account
+ * `disable`: Set the oraclebmcs provider as disabled
+ * `enable`: Set the oraclebmcs provider as enabled
+
+---
+## hal config provider oraclebmcs account
+
+Manage and view Spinnaker configuration for the oraclebmcs provider's account
+
+#### Usage
+```
+hal config provider oraclebmcs account ACCOUNT [parameters] [subcommands]
+```
+#### Parameters
+`ACCOUNT`: The name of the account to operate on.
+ * `--no-validate`: (*Default*: `false`) Skip validation.
+#### Subcommands
+ * `add`: Add an account to the oraclebmcs provider.
+ * `delete`: Delete a specific oraclebmcs account by name.
+ * `edit`: Edit an account in the oraclebmcs provider.
+ * `get`: Get the specified account details for the oraclebmcs provider.
+ * `list`: List the account names for the oraclebmcs provider.
+
+---
+## hal config provider oraclebmcs account add
+
+Add an account to the oraclebmcs provider.
+
+#### Usage
+```
+hal config provider oraclebmcs account add ACCOUNT [parameters]
+```
+#### Parameters
+`ACCOUNT`: The name of the account to operate on.
+ * `--compartment-id`: Provide the ocid of the Oracle BMCS Compartment to use.
+ * `--no-validate`: (*Default*: `false`) Skip validation.
+ * `--required-group-membership`: (*Default*: `[]`) A user must be a member of at least one specified group in order to make changes to this account's cloud resources.
+
+---
+## hal config provider oraclebmcs account delete
+
+Delete a specific oraclebmcs account by name.
+
+#### Usage
+```
+hal config provider oraclebmcs account delete ACCOUNT [parameters]
+```
+#### Parameters
+`ACCOUNT`: The name of the account to operate on.
+ * `--no-validate`: (*Default*: `false`) Skip validation.
+
+---
+## hal config provider oraclebmcs account edit
+
+Edit an account in the oraclebmcs provider.
+
+#### Usage
+```
+hal config provider oraclebmcs account edit ACCOUNT [parameters]
+```
+#### Parameters
+`ACCOUNT`: The name of the account to operate on.
+ * `--add-required-group-membership`: Add this group to the list of required group memberships.
+ * `--compartment-id`: Provide the ocid of the Oracle BMCS Compartment to use.
+ * `--no-validate`: (*Default*: `false`) Skip validation.
+ * `--remove-required-group-membership`: Remove this group from the list of required group memberships.
+ * `--required-group-membership`: A user must be a member of at least one specified group in order to make changes to this account's cloud resources.
+
+---
+## hal config provider oraclebmcs account get
+
+Get the specified account details for the oraclebmcs provider.
+
+#### Usage
+```
+hal config provider oraclebmcs account get ACCOUNT [parameters]
+```
+#### Parameters
+`ACCOUNT`: The name of the account to operate on.
+ * `--no-validate`: (*Default*: `false`) Skip validation.
+
+---
+## hal config provider oraclebmcs account list
+
+List the account names for the oraclebmcs provider.
+
+#### Usage
+```
+hal config provider oraclebmcs account list [parameters]
+```
+#### Parameters
+ * `--no-validate`: (*Default*: `false`) Skip validation.
+
+---
+## hal config provider oraclebmcs disable
+
+Set the oraclebmcs provider as disabled
+
+#### Usage
+```
+hal config provider oraclebmcs disable [parameters]
+```
+#### Parameters
+ * `--no-validate`: (*Default*: `false`) Skip validation.
+
+---
+## hal config provider oraclebmcs enable
+
+Set the oraclebmcs provider as enabled
+
+#### Usage
+```
+hal config provider oraclebmcs enable [parameters]
 ```
 #### Parameters
  * `--no-validate`: (*Default*: `false`) Skip validation.
