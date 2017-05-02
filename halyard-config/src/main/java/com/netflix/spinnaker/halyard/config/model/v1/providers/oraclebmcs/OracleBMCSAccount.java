@@ -10,6 +10,7 @@
 package com.netflix.spinnaker.halyard.config.model.v1.providers.oraclebmcs;
 
 import com.netflix.spinnaker.halyard.config.model.v1.node.Account;
+import com.netflix.spinnaker.halyard.config.model.v1.node.LocalFile;
 import com.netflix.spinnaker.halyard.config.model.v1.node.Validator;
 import com.netflix.spinnaker.halyard.config.problem.v1.ConfigProblemSetBuilder;
 import lombok.Data;
@@ -18,10 +19,14 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class OracleBMCSAccount extends Account {
-    private String compartmentId;
+  private String compartmentId;
+  @LocalFile
+  private String sshPrivateKeyFilePath;
+  @LocalFile
+  private String oracleBmcsConfigFilePath;
 
-    @Override
-    public void accept(ConfigProblemSetBuilder psBuilder, Validator v) {
-        v.validate(psBuilder, this);
-    }
+  @Override
+  public void accept(ConfigProblemSetBuilder psBuilder, Validator v) {
+    v.validate(psBuilder, this);
+  }
 }

@@ -11,4 +11,6 @@ package com.netflix.spinnaker.halyard.cli.command.v1.config.providers.oraclebmcs
 
 public class OracleBMCSCommandProperties {
   static final String COMPARTMENT_ID_DESCRIPTION = "Provide the ocid of the Oracle BMCS Compartment to use.";
+  static final String SSH_PRIVATE_KEY_FILE_PATH_DESCRIPTION = "Provide the path to the private key for accessing Oracle BMCS.";
+  static final String ORACLE_BMCS_CONFIG_FILE_PATH_DESCRIPTION = "Provide the path to the Oracle BMCS config file.";
 }

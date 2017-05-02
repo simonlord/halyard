@@ -14,30 +14,37 @@ import com.netflix.spinnaker.halyard.config.model.v1.providers.oraclebmcs.Oracle
 import com.netflix.spinnaker.halyard.config.problem.v1.ConfigProblemSetBuilder;
 import com.netflix.spinnaker.halyard.config.validate.v1.util.ValidatingFileReader;
 import com.netflix.spinnaker.halyard.core.problem.v1.Problem.Severity;
-import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;
-
-import java.io.File;
-import java.io.IOException;
 
 @Component
 public class OracleBMCSAccountValidator extends Validator<OracleBMCSAccount> {
   @Override
   public void validate(ConfigProblemSetBuilder psBuilder, OracleBMCSAccount account) {
     String configPath = System.getenv("HOME") + "/.oraclebmc/config";
-    String config = ValidatingFileReader.contents(psBuilder, configPath);
-    if (config == null){
-      return;
-    } else if (config.isEmpty()) {
-      psBuilder.addProblem(Severity.FATAL, "You must configure the oraclebmcs config file: ~/.oraclebmc/config");;
-    }
-    if (!config.contains("[" + account.getName() + "]")) {
-      psBuilder.addProblem(Severity.FATAL, "The oraclebmcs config file (~/.oraclebmc/config) is missing a profile called " + account.getName());
-    }
+
 
     String compartmentId = account.getCompartmentId();
     if (compartmentId == null || compartmentId.isEmpty()) {
       psBuilder.addProblem(Severity.FATAL, "You must provide a compartment id");
+    }
+
+    String sshPrivateKey = ValidatingFileReader.contents(psBuilder, account.getSshPrivateKeyFilePath());
+    if (sshPrivateKey == null) {
+      return;
+    }
+    if (sshPrivateKey.isEmpty()) {
+      psBuilder.addProblem(Severity.WARNING, "The supplied ssh private key file is empty.");
+    }
+
+    String config = ValidatingFileReader.contents(psBuilder, account.getOracleBmcsConfigFilePath());
+    if (config == null) {
+      return;
+    } else if (config.isEmpty()) {
+      psBuilder.addProblem(Severity.FATAL, "You must configure the oraclebmcs config file: ~/.oraclebmc/config");
+      return;
+    }
+    if (!config.contains("[" + account.getName() + "]")) {
+      psBuilder.addProblem(Severity.FATAL, "The oraclebmcs config file (~/.oraclebmc/config) is missing a profile called " + account.getName());
     }
 
     // TODO (simonlord): Once BMCS SDK is in maven we can access via spinnaker.dependency("clouddriverOracleBmcs") and test account login

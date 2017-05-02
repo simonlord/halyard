@@ -12,7 +12,9 @@ package com.netflix.spinnaker.halyard.cli.command.v1.config.providers.oraclebmcs
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.netflix.spinnaker.halyard.cli.command.v1.config.providers.account.AbstractAddAccountCommand;
+import com.netflix.spinnaker.halyard.cli.command.v1.converter.PathExpandingConverter;
 import com.netflix.spinnaker.halyard.config.model.v1.node.Account;
+import com.netflix.spinnaker.halyard.config.model.v1.node.LocalFile;
 import com.netflix.spinnaker.halyard.config.model.v1.node.Provider;
 import com.netflix.spinnaker.halyard.config.model.v1.providers.oraclebmcs.OracleBMCSAccount;
 
@@ -28,11 +30,26 @@ public class OracleBMCSAddAccountCommand extends AbstractAddAccountCommand {
   )
   private String compartmentId;
 
+  @Parameter(
+          names = "--ssh-private-key-file-path",
+          converter = PathExpandingConverter.class,
+          description = OracleBMCSCommandProperties.SSH_PRIVATE_KEY_FILE_PATH_DESCRIPTION
+  )
+  private String sshPrivateKeyFilePath;
+
+  @Parameter(
+          names = "--oracle-bmcs-config-file-path",
+          converter = PathExpandingConverter.class,
+          description = OracleBMCSCommandProperties.ORACLE_BMCS_CONFIG_FILE_PATH_DESCRIPTION
+  )
+  private String oracleBmcsConfigFilePath;
 
   @Override
   protected Account buildAccount(String accountName) {
     OracleBMCSAccount account = (OracleBMCSAccount) new OracleBMCSAccount().setName(accountName);
     account.setCompartmentId(compartmentId);
+    account.setSshPrivateKeyFilePath(sshPrivateKeyFilePath);
+    account.setOracleBmcsConfigFilePath(oracleBmcsConfigFilePath);
 
     return account;
   }
