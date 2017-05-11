@@ -9,6 +9,7 @@
 
 package com.netflix.spinnaker.halyard.config.model.v1.persistentStorage;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.netflix.spinnaker.halyard.config.model.v1.node.LocalFile;
 import com.netflix.spinnaker.halyard.config.model.v1.node.PersistentStore;
 import com.netflix.spinnaker.halyard.config.model.v1.node.Validator;
@@ -18,6 +19,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OracleBMCSPersistentStore extends PersistentStore {
   private String bucketName;
   private String namespace;
